@@ -17,7 +17,7 @@ const categories = [
 ];
 
 export default function CategoryList() {
-  console.log(categories);
+//   console.log(categories);
   return (
     <ul>
       {categories.map((cat) => (
