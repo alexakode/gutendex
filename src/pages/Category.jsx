@@ -1,5 +1,6 @@
 import { data, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { addFavorite } from "../utils/localStorage";
 export default function Category() {
   const { name } = useParams();
   const [books, setBooks] = useState([]);
@@ -34,6 +35,7 @@ export default function Category() {
           <li key={book.id}>
             <strong>{book.title}</strong> av{" "}
             {book.authors.map((a) => a.name).join(", ")}
+            <button onClick={() => addFavorite(book)}>Legg til favoritt</button>
           </li>
         ))}
       </ul>
