@@ -16,6 +16,8 @@ export default function Category() {
   const [prevUrl, setPrevUrl] = useState(null);
 
   useEffect(() => {
+    // Clear current results so loading state is visible immediately
+    setBooks([]);
     setLoading(true);
     setError(null);
 
@@ -68,11 +70,11 @@ export default function Category() {
       </ul>
 
       <div style={{ marginTop: 12 }}>
-        <button onClick={() => goToUrl(prevUrl)} disabled={!prevUrl}>
+        <button onClick={() => goToUrl(prevUrl)} disabled={!prevUrl || loading}>
           Forrige
         </button>
         <span style={{ margin: "0 8px" }}>Side {page}</span>
-        <button onClick={() => goToUrl(nextUrl)} disabled={!nextUrl}>
+        <button onClick={() => goToUrl(nextUrl)} disabled={!nextUrl || loading}>
           Neste
         </button>
       </div>

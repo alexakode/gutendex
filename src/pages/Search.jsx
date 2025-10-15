@@ -19,6 +19,8 @@ export default function Search() {
       return;
     }
 
+    // Clear current results immediately so the UI shows loading state promptly
+    setBooks([]);
     setLoading(true);
     setError(null);
 
@@ -72,11 +74,11 @@ export default function Search() {
       </ul>
 
       <div style={{ marginTop: 12 }}>
-        <button onClick={() => goToUrl(prevUrl)} disabled={!prevUrl}>
+        <button onClick={() => goToUrl(prevUrl)} disabled={!prevUrl || loading}>
           Forrige
         </button>
         <span style={{ margin: "0 8px" }}>Side {page}</span>
-        <button onClick={() => goToUrl(nextUrl)} disabled={!nextUrl}>
+        <button onClick={() => goToUrl(nextUrl)} disabled={!nextUrl || loading}>
           Neste
         </button>
       </div>
