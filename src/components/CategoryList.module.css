@@ -1,7 +1,16 @@
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
-    gap: 1rem;
-    justify-items: center;
-    margin: 2rem 0;
-    }
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  align-items: center;
+  justify-items: center;
+  padding: 1rem 0;
+}
+
+.categoryButton {
+  font-size: clamp(1rem, 1.33vw, 1.25rem);
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 18rem;
+  text-transform: none;
+}

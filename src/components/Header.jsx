@@ -13,6 +13,7 @@ const NavLink = styled(Link)(({ theme }) => ({
     backgroundColor: "rgba(255, 255, 255, 0.1)",
   },
 }));
+import styles from "./Header.module.css";
 
 export default function Header() {
   const [q, setQ] = useState("");
@@ -25,43 +26,32 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="sticky" color="primary">
+    <AppBar className={styles.appBar} position="sticky" color="primary">
       <Toolbar>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          alignItems="center"
-          width="100%"
-          py={1}
-        >
-          <Box sx={{ display: "flex", gap: 2 }}>
-            <NavLink to="/">Hjem</NavLink>
-            <NavLink to="/favorites">Favoritter</NavLink>
-          </Box>
+        <div className={styles.toolbarStack}>
+          <div className={styles.navBox}>
+            <Link to="/" className={styles.navLink}>
+              Hjem
+            </Link>
+            <Link to="/favorites" className={styles.navLink}>
+              Favoritter
+            </Link>
+          </div>
 
-          <Box
-            component="form"
-            onSubmit={submit}
-            sx={{
-              display: "flex",
-              gap: 1,
-              flexGrow: 1,
-              maxWidth: "600px",
-            }}
-          >
+          <form onSubmit={submit} className={styles.searchForm}>
             <TextField
               size="small"
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Søk bøker..."
               fullWidth
-              sx={{ bgcolor: "background.paper", borderRadius: 1 }}
+              className={styles.searchField}
             />
             <Button type="submit" variant="contained" color="secondary">
               Søk
             </Button>
-          </Box>
-        </Stack>
+          </form>
+        </div>
       </Toolbar>
     </AppBar>
   );
