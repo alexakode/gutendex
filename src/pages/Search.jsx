@@ -1,32 +1,37 @@
-import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { addFavorite } from "../utils/localStorage";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 
-export default function Category() {
-  const { name } = useParams();
+export default function Search() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const q = searchParams.get("q") || "";
   const pageParam = searchParams.get("page") || "1";
   const page = Number(pageParam) || 1;
-
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
   const [prevUrl, setPrevUrl] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!q) {
+      setBooks([]);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
-    const url = `https://gutendex.com/books?topic=${encodeURIComponent(name)}&page=${page}`;
+    const url = `https://gutendex.com/books?search=${encodeURIComponent(
+      q
+    )}&page=${page}`;
     fetch(url)
       .then((res) => {
-        if (!res.ok) throw new Error("Kunne ikke hente bøker");
+        if (!res.ok) throw new Error("Kunne ikke hente søk");
         return res.json();
       })
       .then((data) => {
-        setBooks(data.results);
+        setBooks(data.results || []);
         setNextUrl(data.next);
         setPrevUrl(data.previous);
         setLoading(false);
@@ -35,14 +40,15 @@ export default function Category() {
         setError(err.message);
         setLoading(false);
       });
-  }, [name, page]);
+  }, [q, page]);
 
   const goToUrl = (url) => {
     if (!url) return;
+    // Gutendex `next` and `previous` are full URLs with a `page=` param. Extract page.
     try {
       const u = new URL(url);
       const p = u.searchParams.get("page") || "1";
-      navigate(`/category/${encodeURIComponent(name)}?page=${p}`);
+      navigate(`/search?q=${encodeURIComponent(q)}&page=${p}`);
     } catch (e) {
       console.error(e);
     }
@@ -50,19 +56,17 @@ export default function Category() {
 
   return (
     <section>
-      <h2>Bøker i kategori: {name}</h2>
-      {loading && <p>Laster bøker…</p>}
+      <h2>Søkeresultater for: {q}</h2>
+      {loading && <p>Laster…</p>}
       {error && <p>Feil: {error}</p>}
+      {!loading && !error && books.length === 0 && <p>Ingen resultater.</p>}
       <ul>
-        {books.map((book) => (
-          <li key={book.id}>
-            <strong>
-              <Link to={`/book/${book.id}`}>{book.title}</Link>
-            </strong>{" "}
-            av {book.authors.map((a) => a.name).join(", ")}
-            <button onClick={() => addFavorite(book)} style={{ marginLeft: 8 }}>
-              Legg til favoritt
-            </button>
+        {books.map((b) => (
+          <li key={b.id}>
+            <Link to={`/book/${b.id}`}>{b.title}</Link>
+            {b.authors && b.authors.length > 0 && (
+              <span> — av {b.authors.map((a) => a.name).join(", ")}</span>
+            )}
           </li>
         ))}
       </ul>
