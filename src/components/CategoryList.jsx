@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-
+import { Button } from "@mui/material";
+import styles from "./CategoryList.module.css";
 const categories = [
   "Fiction",
   "Mystery",
@@ -19,12 +20,11 @@ const categories = [
 export default function CategoryList() {
 //   console.log(categories);
   return (
-    <ul>
-      {categories.map((cat) => (
-        <li key={cat}>
-          <Link to={`/category/${cat}`}>{cat}</Link>
-        </li>
+    <div className={styles.grid}>
+      {categories.map((cat) => (<Button component={Link} to={`/category/${cat}`} variant="contained" color="primary" fullWidth sx={{textTransform: "none", fontWeight: 500}}>
+            {cat}
+          </Button>
       ))}
-    </ul>
+    </div>
   );
 }

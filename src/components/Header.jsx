@@ -1,5 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { AppBar, Toolbar, Button, TextField, Box, Stack } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+// Style the RouterLink to look like a MUI Button
+const NavLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+  textDecoration: "none",
+  padding: theme.spacing(1, 2),
+  borderRadius: theme.shape.borderRadius,
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+  },
+}));
 
 export default function Header() {
   const [q, setQ] = useState("");
@@ -12,26 +25,44 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <nav>
-        <Link to="/">Hjem</Link>
-        <Link to="/favorites">Favoritter</Link>
-      </nav>
-      <form onSubmit={submit} style={{ marginTop: 8 }}>
-        <label
-          htmlFor="search-input"
-          style={{ position: "absolute", left: -9999 }}
+    <AppBar position="sticky" color="primary">
+      <Toolbar>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+          alignItems="center"
+          width="100%"
+          py={1}
         >
-          Søk etter bøker
-        </label>
-        <input
-          id="search-input"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Søk bøker..."
-        />
-        <button type="submit">Søk</button>
-      </form>
-    </header>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <NavLink to="/">Hjem</NavLink>
+            <NavLink to="/favorites">Favoritter</NavLink>
+          </Box>
+
+          <Box
+            component="form"
+            onSubmit={submit}
+            sx={{
+              display: "flex",
+              gap: 1,
+              flexGrow: 1,
+              maxWidth: "600px",
+            }}
+          >
+            <TextField
+              size="small"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Søk bøker..."
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: 1 }}
+            />
+            <Button type="submit" variant="contained" color="secondary">
+              Søk
+            </Button>
+          </Box>
+        </Stack>
+      </Toolbar>
+    </AppBar>
   );
 }

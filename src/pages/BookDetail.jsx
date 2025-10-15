@@ -1,16 +1,19 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import colorthief from "colorthief";
 import {
   addFavorite,
   getFavorites,
   removeFavorite,
 } from "../utils/localStorage";
+import styles from "./BookDetail.module.css";
 
 export default function BookDetail() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const coverRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -65,9 +68,11 @@ export default function BookDetail() {
       <h2>{book.title}</h2>
       {cover && (
         <img
+          ref={coverRef}
           src={cover}
           alt={`Cover for ${book.title}`}
-          style={{ maxWidth: 200 }}
+          className={styles.coverImage}
+          // crossOrigin="anonymous"
         />
       )}
       <p>

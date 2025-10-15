@@ -1,0 +1,22 @@
+.bookDetail {
+  /* Container styles */
+}
+
+.coverImage {
+  max-width: 200px;
+  /* Add other image styles */
+}
+
+.formatList {
+  list-style: none;
+  padding: 0;
+}
+
+.info {
+  /* Style for info paragraphs */
+}
+
+/* We'll add dynamic color variables when we implement colorthief */
+.accentColor {
+  /* This will use the extracted color */
+}
