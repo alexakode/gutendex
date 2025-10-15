@@ -6,6 +6,7 @@ import {
   getFavorites,
   removeFavorite,
 } from "../utils/localStorage";
+import { Button, Typography, Box } from "@mui/material";
 import styles from "./BookDetail.module.css";
 
 export default function BookDetail() {
