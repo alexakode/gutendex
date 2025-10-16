@@ -7,6 +7,7 @@ import {
   removeFavorite,
 } from "../utils/localStorage";
 import { Button, Typography, Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import styles from "./BookDetail.module.css";
 
 export default function BookDetail() {
@@ -15,6 +16,7 @@ export default function BookDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const coverRef = useRef(null);
+  const theme = useTheme();
 
   useEffect(() => {
     setLoading(true);
@@ -65,7 +67,13 @@ export default function BookDetail() {
   ].filter((f) => book.formats?.[f.key]);
 
   return (
-    <section>
+    <section
+      className={styles.container}
+      style={{
+        "--font-body": theme.typography.body1.fontSize,
+        "--font-title": theme.typography.h2.fontSize,
+      }}
+    >
       <h2>{book.title}</h2>
       {cover && (
         <img
@@ -76,27 +84,51 @@ export default function BookDetail() {
           // crossOrigin="anonymous"
         />
       )}
-      <p>
-        Forfatter: {book.authors?.map((a) => a.name).join(", ") || "Ukjent"}
-      </p>
-      <p>Nedlastinger: {book.download_count}</p>
-      <p>Kategorier: {book.subjects?.slice(0, 5).join(", ")}</p>
-      <p>Språk: {book.languages?.join(", ")}</p>
+      <dl className={styles.info}>
+        <dt>Forfatter:</dt>
+        <dd>{book.authors?.map((a) => a.name).join(", ") || "Ukjent"}</dd>
+        <dt>Nedlastinger:</dt>
+        <dd>{book.download_count}</dd>
+        <dt>Kategorier:</dt>
+        <dd className={styles.subjectTags}>
+          {book.subjects?.slice(0, 5).map((subject) => {
+            const parts = subject.split("--").map((s) => s.trim());
+            return parts.length > 1 ? (
+              <span key={subject} className={styles.tagGroup}>
+                <span className={styles.tagLeft}>{parts[0]}</span>
+                <span className={styles.tagRight}>{parts[1]}</span>
+              </span>
+            ) : (
+              <span key={subject} className={styles.tag}>
+                {subject}
+              </span>
+            );
+          })}
+        </dd>
+        <dt>Språk:</dt>
+        <dd>{book.languages?.join(", ") || "Ukjent"}</dd>
+      </dl>
       {formatLinks.length > 0 && (
         <div>
           <p>Tilgjengelige formater:</p>
-          <ul>
+          <ul className={styles.formatList}>
             {formatLinks.map((f) => (
               <li key={f.key}>
-                <a href={book.formats[f.key]}>{f.label}</a>
+                <Button
+                  variant="outlined"
+                  component="a"
+                  href={book.formats[f.key]}
+                >
+                  {f.label}
+                </Button>
               </li>
             ))}
           </ul>
         </div>
       )}
-      <button onClick={toggleFavorite}>
+      <Button variant="contained" color="primary" onClick={toggleFavorite}>
         {isFavorite() ? "Fjern fra favoritter" : "Legg til i favoritter"}
-      </button>
+      </Button>
     </section>
   );
 }
