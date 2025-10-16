@@ -5,6 +5,7 @@ import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import Header from "./components/Header";
 import theme from "./theme";
+import styles from "./App.module.css";
 
 export default function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -22,9 +23,11 @@ export default function App() {
     <ThemeProvider theme={activeTheme}>
       <CssBaseline />
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      <div className={styles.appWrapper}>
+        <main className={styles.mainContent}>
+          <Outlet />
+        </main>
+      </div>
     </ThemeProvider>
   );
 }
