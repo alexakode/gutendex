@@ -1,0 +1,21 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  background-color: var(--mui-surface, #fff);
+}
+ul li strong {
+  /* flex: 1; */
+}
+ul li a {
+  /* flex: 1; */
+  text-decoration: none;
+}

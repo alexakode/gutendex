@@ -1,7 +1,7 @@
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addFavorite } from "../utils/localStorage";
-
+import styles from "./Category.module.css";
 export default function Category() {
   const { name } = useParams();
   const [searchParams] = useSearchParams();
@@ -61,7 +61,7 @@ export default function Category() {
             <strong>
               <Link to={`/book/${book.id}`}>{book.title}</Link>
             </strong>{" "}
-            av {book.authors.map((a) => a.name).join(", ")}
+            <span>av {book.authors.map((a) => a.name).join(", ")}</span>
             <button onClick={() => addFavorite(book)} style={{ marginLeft: 8 }}>
               Legg til favoritt
             </button>
