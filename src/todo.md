@@ -58,3 +58,8 @@ Tips
 * Begynn med å sette opp grunstrukturen for prosjektet, inkludert routing og komponenter.
 * Del opp oppgaven i mindre deler, som for eksempel søkefunksjonalitet, kategorilister og favoritter.
 * Test underveis
+* Rydd opp i forskjell på localhost og produksjon ved å bruke miljøvariabler for API-endepunkter
+* Sjekk tanstack query for enklere datahåndtering og caching (gjør siden raskere): https://tanstack.com/query/v4
+* Dialogbokser for bokvisning kan lages med biblioteker som Radix UI eller Material-UI
+* Oppdater favoritter
+* hooks for å organisere kode bedre
