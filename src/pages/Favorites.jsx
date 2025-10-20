@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BookDetail from "./BookDetail";
+import BookDialog from "../components/BookDialog";
 import { getFavorites, removeFavorite } from "../utils/favoriteStorage";
 import { Link } from "react-router-dom";
 
@@ -35,9 +36,7 @@ export default function Favorites() {
             onClick={() => setSelectedBook(b)}
             style={{ cursor: "pointer" }}
           >
-            <h3>
-              <Link to={`/book/${b.id}`}>{b.title}</Link>
-            </h3>
+            <h3>{b.title}</h3>
             {b.authors && b.authors.length > 0 && (
               <span> — av {b.authors.map((a) => a.name).join(", ")}</span>
             )}
@@ -53,10 +52,10 @@ export default function Favorites() {
           </li>
         ))}
       </ul>
-      <BookDetail
+      <BookDialog
         open={!!selectedBook}
         onClose={() => setSelectedBook(null)}
-        bookId={selectedBook ? selectedBook.id : null}
+        book={selectedBook}
       />
     </section>
   );
