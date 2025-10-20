@@ -49,8 +49,8 @@ export default function BookDetail() {
       setBook({ ...book });
     } else {
       addFavorite(book);
-      setBook({ ...book });
     }
+    setBook({ ...book });
   };
 
   if (loading) return <p>Laster bok...</p>;
