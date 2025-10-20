@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFavorites, removeFavorite } from "../utils/localStorage";
+import { getFavorites, removeFavorite } from "../utils/favoriteStorage";
 import { Link } from "react-router-dom";
 
 export default function Favorites() {

@@ -1,9 +1,10 @@
 export const getFavorites = () => {
-  console.log("getFavorites called");
+  console.log("getFavorites called from localStorage");
   return JSON.parse(localStorage.getItem("favorites")) || [];
 };
 
 export const addFavorite = (book) => {
+  console.log("addFavorite called from localStorage");
   const current = getFavorites();
   const exists = current.some((b) => b.id === book.id);
   if (!exists) {
@@ -13,6 +14,7 @@ export const addFavorite = (book) => {
 };
 
 export const removeFavorite = (id) => {
+  console.log("removeFavorite called from localStorage");
   const current = getFavorites().filter((book) => book.id !== id);
   const updated = current.filter((book) => book.id === id).length === 0;
   localStorage.setItem("favorites", JSON.stringify(current));

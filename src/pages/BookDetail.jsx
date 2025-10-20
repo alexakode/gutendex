@@ -5,7 +5,7 @@ import {
   addFavorite,
   getFavorites,
   removeFavorite,
-} from "../utils/localStorage";
+} from "../utils/favoriteStorage";
 import { Button, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import styles from "./BookDetail.module.css";
