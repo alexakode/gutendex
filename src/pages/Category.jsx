@@ -91,7 +91,7 @@ export default function Category() {
             <FavouriteButton
               bookId={book.id}
               isFavorite={favorites.includes(book.id)}
-              onToggle={() => toggleFavorite}
+              onToggle={toggleFavorite}
             />
           </li>
         ))}

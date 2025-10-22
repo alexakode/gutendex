@@ -5,6 +5,7 @@ import {
   addFavorite,
   getFavorites,
   removeFavorite,
+  isFavorite,
 } from "../utils/favoriteStorage";
 import { Button, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -36,14 +37,9 @@ export default function BookDetail() {
       });
   }, [id]);
 
-  const isFavorite = () => {
-    const favs = getFavorites();
-    return favs.some((b) => b.id === book?.id);
-  };
-
   const toggleFavorite = () => {
     if (!book) return;
-    if (isFavorite()) {
+    if (isFavorite(book.id)) {
       removeFavorite(book.id);
       // force re-render by copying book
       setBook({ ...book });

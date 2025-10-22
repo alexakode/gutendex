@@ -21,3 +21,16 @@ export const removeFavorite = (bookId) => {
   localStorage.setItem("favorites", JSON.stringify(updated));
   return updated;
 };
+export const isFavorite = (bookId) => {
+  const favs = getFavorites();
+  return favs.some((b) => b.id === bookId);
+};
+export const toggleFavorite = (book) => {
+  const favs = getFavorites();
+  const exists = favs.some((b) => b.id === book.id);
+  const updated = exists
+    ? favs.filter((b) => b.id !== book.id)
+    : [...favs, book];
+  localStorage.setItem("favorites", JSON.stringify(updated));
+  return updated;
+};
