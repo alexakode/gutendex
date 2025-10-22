@@ -89,9 +89,9 @@ export default function Category() {
             </button>
             <span>av {book.authors.map((a) => a.name).join(", ")}</span>
             <FavouriteButton
-              bookId={book.id}
+              book={book}
               isFavorite={favorites.includes(book.id)}
-              onToggle={toggleFavorite}
+              onToggle={setFavorites}
             />
           </li>
         ))}
