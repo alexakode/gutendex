@@ -8,7 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import styles from "../pages/BookDetail.module.css";
+import styles from "./BookDetail.module.css";
 import { useEffect, useState, useRef } from "react";
 import colorthief from "colorthief";
 import {
