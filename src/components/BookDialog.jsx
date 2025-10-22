@@ -8,7 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import styles from "./BookDetail.module.css";
+import styles from "../pages/BookDetail.module.css";
 import { useEffect, useState, useRef } from "react";
 import colorthief from "colorthief";
 import {
@@ -16,7 +16,8 @@ import {
   getFavorites,
   removeFavorite,
 } from "../utils/favoriteStorage";
-
+import BookContent from "./BookContent";
+import BookDetail from "./BookDetail";
 export default function BookDialog({ open, onClose, book }) {
   if (!book) return null;
   const isFavorite = () => {
@@ -33,7 +34,7 @@ export default function BookDialog({ open, onClose, book }) {
   };
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Bokdetaljer</DialogTitle>
+      <DialogTitle>{book.title}</DialogTitle>
       <DialogContent>
         <Typography>Detaljer for bok med ID: {book.id}</Typography>
       </DialogContent>
@@ -45,6 +46,7 @@ export default function BookDialog({ open, onClose, book }) {
           Lukk
         </Button>
       </DialogActions>
+      <BookContent book={book} />
     </Dialog>
   );
 }

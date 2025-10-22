@@ -1,6 +1,12 @@
-import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  Link,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addFavorite } from "../utils/localStorage";
+import BookDialog from "../components/BookDialog";
 import styles from "./Category.module.css";
 export default function Category() {
   const { name } = useParams();
@@ -10,10 +16,13 @@ export default function Category() {
   const page = Number(pageParam) || 1;
 
   const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
   const [prevUrl, setPrevUrl] = useState(null);
+  const handleOpen = (book) => setSelectedBook(book);
+  const handleClose = () => setSelectedBook(null);
 
   useEffect(() => {
     // Clear current results so loading state is visible immediately
@@ -21,7 +30,9 @@ export default function Category() {
     setLoading(true);
     setError(null);
 
-    const url = `https://gutendex.com/books?topic=${encodeURIComponent(name)}&page=${page}`;
+    const url = `https://gutendex.com/books?topic=${encodeURIComponent(
+      name
+    )}&page=${page}`;
     fetch(url)
       .then((res) => {
         if (!res.ok) throw new Error("Kunne ikke hente bøker");
@@ -60,6 +71,12 @@ export default function Category() {
           <li key={book.id}>
             <strong>
               <Link to={`/book/${book.id}`}>{book.title}</Link>
+              <button
+                onClick={() => handleOpen(book)}
+                style={{ marginLeft: 8 }}
+              >
+                Vis detaljer
+              </button>
             </strong>{" "}
             <span>av {book.authors.map((a) => a.name).join(", ")}</span>
             <button onClick={() => addFavorite(book)} style={{ marginLeft: 8 }}>
@@ -69,6 +86,13 @@ export default function Category() {
         ))}
       </ul>
 
+      {selectedBook && (
+        <BookDialog
+          open={!!selectedBook}
+          onClose={() => setSelectedBook(null)}
+          book={selectedBook}
+        />
+      )}
       <div style={{ marginTop: 12 }}>
         <button onClick={() => goToUrl(prevUrl)} disabled={!prevUrl || loading}>
           Forrige

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BookDetail from "./BookDetail";
+import BookDetail from "../components/BookDetail";
 import BookDialog from "../components/BookDialog";
 import { getFavorites, removeFavorite } from "../utils/favoriteStorage";
 import { Link } from "react-router-dom";

@@ -1,7 +1,15 @@
 .bookDetail {
   /* Container styles */
 }
-
+.bookContent {
+  /* Styles for the content area */
+  margin-top: 1rem;
+}
+.container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 .coverImage {
   max-width: 200px;
   /* Add other image styles */
