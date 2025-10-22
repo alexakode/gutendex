@@ -18,6 +18,7 @@ import {
 } from "../utils/favoriteStorage";
 import BookContent from "./BookContent";
 import BookDetail from "./BookDetail";
+import FavouriteButton from "./FavouriteButton";
 export default function BookDialog({ open, onClose, book }) {
   if (!book) return null;
   const isFavorite = () => {

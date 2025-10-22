@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BookDetail from "../components/BookDetail";
 import BookDialog from "../components/BookDialog";
 import { getFavorites, removeFavorite } from "../utils/favoriteStorage";
+import FavouriteButton from "../components/FavouriteButton";
 import { Link } from "react-router-dom";
 
 export default function Favorites() {

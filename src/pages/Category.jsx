@@ -5,7 +5,12 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { addFavorite } from "../utils/localStorage";
+import {
+  addFavorite,
+  getFavorites,
+  removeFavorite,
+} from "../utils/localStorage";
+import FavouriteButton from "../components/FavouriteButton";
 import BookDialog from "../components/BookDialog";
 import styles from "./Category.module.css";
 export default function Category() {
@@ -19,6 +24,7 @@ export default function Category() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
   const [nextUrl, setNextUrl] = useState(null);
   const [prevUrl, setPrevUrl] = useState(null);
   const handleOpen = (book) => setSelectedBook(book);
@@ -29,6 +35,7 @@ export default function Category() {
     setBooks([]);
     setLoading(true);
     setError(null);
+    setFavorites(getFavorites());
 
     const url = `https://gutendex.com/books?topic=${encodeURIComponent(
       name
@@ -49,6 +56,14 @@ export default function Category() {
         setLoading(false);
       });
   }, [name, page]);
+  const toggleFavorite = (bookId) => {
+    const book = books.find((b) => b.id === bookId);
+    const updated = favorites.some((b) => b.id === bookId)
+      ? removeFavorite(bookId)
+      : addFavorite(book);
+    setFavorites(updated);
+    console.log("Toggled favorite for book ID:", bookId);
+  };
 
   const goToUrl = (url) => {
     if (!url) return;
@@ -69,19 +84,15 @@ export default function Category() {
       <ul>
         {books.map((book) => (
           <li key={book.id}>
-            <strong>
-              <Link to={`/book/${book.id}`}>{book.title}</Link>
-              <button
-                onClick={() => handleOpen(book)}
-                style={{ marginLeft: 8 }}
-              >
-                Vis detaljer
-              </button>
-            </strong>{" "}
-            <span>av {book.authors.map((a) => a.name).join(", ")}</span>
-            <button onClick={() => addFavorite(book)} style={{ marginLeft: 8 }}>
-              Legg til favoritt
+            <button onClick={() => handleOpen(book)} style={{ marginLeft: 8 }}>
+              {book.title}
             </button>
+            <span>av {book.authors.map((a) => a.name).join(", ")}</span>
+            <FavouriteButton
+              bookId={book.id}
+              isFavorite={favorites.includes(book.id)}
+              onToggle={() => toggleFavorite}
+            />
           </li>
         ))}
       </ul>

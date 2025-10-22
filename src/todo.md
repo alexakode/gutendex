@@ -67,4 +67,4 @@ Tips
 Merge innhold fra BookDetail og BookDialog til en enkelt komponent for bokdetaljer
 teste at dialog fungerer
 rydde css-duplikater
-slette pages/BookDetail.jsx når dialogen fungerer
+slette pages/BookDetail.jsx når dialogen fungerer → WIP: dialogen fungerer, men siden kan fremdeles være nyttig

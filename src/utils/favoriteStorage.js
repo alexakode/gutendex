@@ -8,15 +8,16 @@ export const addFavorite = (book) => {
   const current = getFavorites();
   const exists = current.some((b) => b.id === book.id);
   if (!exists) {
-    localStorage.setItem("favorites", JSON.stringify([...current, book]));
+    const updated = [...current, book];
+    localStorage.setItem("favorites", JSON.stringify(updated));
   }
   return exists;
 };
 
-export const removeFavorite = (id) => {
+export const removeFavorite = (bookId) => {
   console.log("removeFavorite called from favoriteStorage");
-  const current = getFavorites().filter((book) => book.id !== id);
-  const updated = current.filter((book) => book.id === id).length === 0;
-  localStorage.setItem("favorites", JSON.stringify(current));
+  const current = getFavorites();
+  const updated = current.filter((b) => b.id !== bookId);
+  localStorage.setItem("favorites", JSON.stringify(updated));
   return updated;
 };
