@@ -63,3 +63,8 @@ Tips
 * Dialogbokser for bokvisning kan lages med biblioteker som Radix UI eller Material-UI
 * Oppdater favoritter
 * hooks for å organisere kode bedre
+
+Merge innhold fra BookDetail og BookDialog til en enkelt komponent for bokdetaljer
+teste at dialog fungerer
+rydde css-duplikater
+slette pages/BookDetail.jsx når dialogen fungerer
