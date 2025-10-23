@@ -10,6 +10,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import styles from "./BookDetail.module.css";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import colorthief from "colorthief";
 import {
   addFavorite,
@@ -33,13 +34,24 @@ export default function BookDialog({ open, onClose, book }) {
       addFavorite({ id: book.id });
     }
   };
+  const navigate = useNavigate();
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{book.title}</DialogTitle>
       <DialogContent>
-        <Typography>Detaljer for bok med ID: {book.id}</Typography>
+        <pre>{JSON.stringify(book, null, 2)}</pre>
+
+        <Typography>
+          av{" "}
+          {book.authors?.map((a) => a.name).join(", ") || "Ukjente forfattere"}{" "}
+          {/* - Detaljer for bok med ID: {book.id}
+          {book.summaries || "Ingen beskrivelser tilgjengelig."} */}
+        </Typography>
       </DialogContent>
       <DialogActions>
+        <button onClick={() => navigate(`/book/${book.id}`)} color="secondary">
+          Åpne bokdetaljer
+        </button>
         <Button onClick={toggleFavorite} color="primary">
           {isFavorite() ? "Fjern fra favoritter" : "Legg til i favoritter"}
         </Button>
@@ -47,7 +59,6 @@ export default function BookDialog({ open, onClose, book }) {
           Lukk
         </Button>
       </DialogActions>
-      <BookContent book={book} />
     </Dialog>
   );
 }
