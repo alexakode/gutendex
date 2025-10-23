@@ -52,9 +52,7 @@ export default function BookDialog({ open, onClose, book }) {
         <button onClick={() => navigate(`/book/${book.id}`)} color="secondary">
           Åpne bokdetaljer
         </button>
-        <Button onClick={toggleFavorite} color="primary">
-          {isFavorite() ? "Fjern fra favoritter" : "Legg til i favoritter"}
-        </Button>
+        <FavouriteButton book={book} onToggle={toggleFavorite} />
         <Button onClick={onClose} color="primary">
           Lukk
         </Button>

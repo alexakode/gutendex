@@ -18,8 +18,8 @@ export default function FavouriteButton({ book, onToggle }) {
   };
 
   return (
-    <button variant="contained" color="primary" onClick={handleToggle}>
+    <Button variant="contained" color="primary" onClick={handleToggle}>
       {isFav ? "Fjern fra favoritter" : "Legg til i favoritter"}
-    </button>
+    </Button>
   );
 }
