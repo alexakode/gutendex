@@ -65,6 +65,8 @@ Tips
 * hooks for å organisere kode bedre
 
 Merge innhold fra BookDetail og BookDialog til en enkelt komponent for bokdetaljer
-teste at dialog fungerer
+teste at dialog fungerer✔️
 rydde css-duplikater
-slette pages/BookDetail.jsx når dialogen fungerer → WIP: dialogen fungerer, men siden kan fremdeles være nyttig
+slette pages/BookDetail.jsx når dialogen fungerer 
+dialogen fungerer, men siden kan fremdeles være nyttig✔️
+    note:flyttet til komponenter/BookDetail.jsx
