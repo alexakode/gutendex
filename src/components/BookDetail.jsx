@@ -7,6 +7,7 @@ import {
   removeFavorite,
   isFavorite,
 } from "../utils/favoriteStorage";
+import FavouriteButton from "./FavouriteButton";
 import { Button, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import styles from "./BookDetail.module.css";
@@ -103,6 +104,8 @@ export default function BookDetail() {
         </dd>
         <dt>Språk:</dt>
         <dd>{book.languages?.join(", ") || "Ukjent"}</dd>
+        <dt>Beskrivelse:</dt>
+        <dd>{book.summaries || "Ingen beskrivelser tilgjengelig."}</dd>
       </dl>
       {formatLinks.length > 0 && (
         <div>
@@ -122,9 +125,7 @@ export default function BookDetail() {
           </ul>
         </div>
       )}
-      <Button variant="contained" color="primary" onClick={toggleFavorite}>
-        {isFavorite() ? "Fjern fra favoritter" : "Legg til i favoritter"}
-      </Button>
+      <FavouriteButton book={book}></FavouriteButton>
     </section>
   );
 }

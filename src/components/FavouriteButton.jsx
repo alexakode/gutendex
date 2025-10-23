@@ -1,3 +1,4 @@
+import Button from "@mui/material/Button";
 import { isFavorite, toggleFavorite } from "../utils/favoriteStorage";
 import { useState, useEffect } from "react";
 export default function FavouriteButton({ book, onToggle }) {
@@ -17,7 +18,7 @@ export default function FavouriteButton({ book, onToggle }) {
   };
 
   return (
-    <button onClick={handleToggle}>
+    <button variant="contained" color="primary" onClick={handleToggle}>
       {isFav ? "Fjern fra favoritter" : "Legg til i favoritter"}
     </button>
   );
