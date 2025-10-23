@@ -70,3 +70,5 @@ rydde css-duplikater
 slette pages/BookDetail.jsx når dialogen fungerer 
 dialogen fungerer, men siden kan fremdeles være nyttig✔️
     note:flyttet til komponenter/BookDetail.jsx
+
+Translation API?
