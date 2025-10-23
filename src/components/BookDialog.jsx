@@ -39,7 +39,9 @@ export default function BookDialog({ open, onClose, book }) {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{book.title}</DialogTitle>
       <DialogContent>
-        <pre>{JSON.stringify(book, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(book, null, 2)}</pre> */
+        // Bruk <pre> for å vise rå JSON-data som referanse for å presentere element på siden
+        }
 
         <Typography>
           av{" "}

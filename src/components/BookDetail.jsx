@@ -10,33 +10,14 @@ import {
 import FavouriteButton from "./FavouriteButton";
 import { Button, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useBook } from "../hooks/useBook";
 import styles from "./BookDetail.module.css";
 
 export default function BookDetail() {
   const { id } = useParams();
-  const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: book, isLoading, isError, error } = useBook(id);
   const coverRef = useRef(null);
   const theme = useTheme();
-
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    fetch(`https://gutendex.com/books/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Kunne ikke hente bok");
-        return res.json();
-      })
-      .then((data) => {
-        setBook(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, [id]);
 
   const toggleFavorite = () => {
     if (!book) return;
@@ -50,8 +31,8 @@ export default function BookDetail() {
     setBook({ ...book });
   };
 
-  if (loading) return <p>Laster bok...</p>;
-  if (error) return <p>Feil: {error}</p>;
+  if (isLoading) return <p>Laster bok...</p>;
+  if (isError) return <p>Feil: {error}</p>;
   if (!book) return <p>Fant ingen bok.</p>;
 
   const cover = book.formats?.["image/jpeg"] || null;
