@@ -11,6 +11,8 @@ import FavouriteButton from "./FavouriteButton";
 import { Button, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useBook } from "../hooks/useBook";
+import { useLanguage } from "../hooks/useLanguage.jsx";
+import { strings } from "../i18n/strings";
 import styles from "./BookDetail.module.css";
 
 export default function BookDetail() {
